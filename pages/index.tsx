@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import Head from "next/head";
 import { DocumentContext } from "next/document";
+import withAuth from "@/lib/withAuth";
 
 const propTypes = {
   user: PropTypes.shape({
@@ -15,7 +16,6 @@ const defaultProps = {
 };
 
 const Index = ({ user }: any) => {
-  console.log("Index", user);
   return (
     <div style={{ padding: "10px 45px" }}>
       <Head>
@@ -38,4 +38,4 @@ Index.getInitialProps = (ctx: any) => {
 Index.propTypes = propTypes;
 Index.defaultProps = defaultProps;
 
-export default Index;
+export default withAuth(Index);
