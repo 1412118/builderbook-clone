@@ -40,21 +40,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## --------------------------------------------------------------------------------------------------------------------------------------------
-
-1. What is the \_app.tsx?
-
-- In a Next.js project, \_app.tsx is a special file used for customizing the default behavior of your Next.js application. This file serves as the root component of your application and is responsible for initializing pages. It allows you to do things like persisting layout across pages, managing state globally, and adding additional data to your pages. (Custom App Component, Layout persistence, Global CSS and Styles, Global data fetching, Custom Error Handling)
-- Overall, \_app.tsx provides a centralized location for configuring and customizing your Next.js application's behavior, making it a powerful tool for building complex and scalable web applications.
-
-2. What is \_document.tsx?
-
-- In a Next.js project, \_document.tsx is another special file used for customizing the default behavior of your Next.js application. While \_app.tsx is responsible for customizing the behavior of individual pages, \_document.tsx is responsible for customizing the HTML document (<html> and <body> tags) that Next.js renders for each page. (Custom Document Component, Custom HTML and Body Tags, Server-Side Rendering Setup, Global CSS and Styles, Optimization and Performance)
-- Overall, \_document.tsx is a powerful tool for customizing the HTML structure and behavior of your Next.js application, allowing you to optimize SEO, accessibility, and performance while maintaining flexibility and control over the rendering process.
-
-3. What is 'static getInitialProps' function?
-
-- static getInitialProps() is a special method used in Next.js for data fetching, primarily in class components or in pages that don't use the newer data fetching methods like getServerSideProps or getStaticProps.
-
-4. Server-side rendering setup
-
--

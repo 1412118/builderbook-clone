@@ -7,6 +7,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import Head from "next/head";
 
+import { theme } from "../lib/theme";
+import Header from "@/components/Header";
+
 function MyApp({ Component, pageProps }: any) {
   return (
     <CacheProvider
@@ -14,16 +17,19 @@ function MyApp({ Component, pageProps }: any) {
         key: "css",
       })}
     >
-      {/* <ThemeProvider theme={theme}> */}
-      {/* ThemeProvider makes the theme available down the React tree thanks to React context. */}
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-      <CssBaseline />
-      {/* <Header {...pageProps} /> */}
-      <Component {...pageProps} />
-      {/* </ThemeProvider> */}
+      <ThemeProvider theme={theme}>
+        {/* ThemeProvider makes the theme available down the React tree thanks to React context. */}
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </Head>
+        <CssBaseline />
+        <Header {...pageProps} />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </CacheProvider>
   );
 }

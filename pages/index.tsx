@@ -32,13 +32,7 @@ const Index = ({ user }: any) => {
 };
 
 Index.getInitialProps = (ctx: any) => {
-  //const res = await fetch("http://localhost:3001/");
-
-  //const json = await res.json();
-  //console.log(json);
-
-  //console.log("ctx.query", ctx.query);
-  return { user: JSON.parse(ctx.query.user) };
+  return { user: ctx.query.user ? JSON.parse(ctx.query.user) : "" };
 };
 
 Index.propTypes = propTypes;
