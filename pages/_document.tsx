@@ -25,7 +25,10 @@ function MyDocument() {
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
-
+        <link
+          rel="stylesheet"
+          href="https://storage.googleapis.com/builderbook/nprogress.min.css"
+        />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-SELGBDXEEF"
