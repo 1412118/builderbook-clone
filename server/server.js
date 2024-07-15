@@ -49,15 +49,13 @@ app.prepare().then(() => {
   /** 1. Creating session*/
 
   server.get("/", async (req, res) => {
-    //return res.send("My express server");]
-    //const user = JSON.stringify({ email: "datdt44@gmail.com" });
+    // const user = JSON.stringify(
+    //   await User.findOne({ slug: "team-builder-book" })
+    // );
 
-    req.session.foo = "bar";
+    const user = await User.findOne({ slug: "team-builder-book" });
 
-    const user = JSON.stringify(
-      await User.findOne({ slug: "team-builder-book" })
-    );
-
+    req.user = user;
     app.render(req, res, "/", { user });
   });
 

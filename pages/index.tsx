@@ -4,17 +4,6 @@ import Head from "next/head";
 import { DocumentContext } from "next/document";
 import withAuth from "@/lib/withAuth";
 
-const propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string.isRequired,
-  }),
-};
-
-const defaultProps = {
-  user: null,
-};
-
 const Index = ({ user }: any) => {
   return (
     <div style={{ padding: "10px 45px" }}>
@@ -31,11 +20,8 @@ const Index = ({ user }: any) => {
   );
 };
 
-Index.getInitialProps = (ctx: any) => {
-  return { user: ctx.query.user ? JSON.parse(ctx.query.user) : "" };
-};
-
-Index.propTypes = propTypes;
-Index.defaultProps = defaultProps;
+// Index.getInitialProps = (ctx: any) => {
+//   return { user: ctx.query.user ? JSON.parse(ctx.query.user) : "" };
+// };
 
 export default withAuth(Index);

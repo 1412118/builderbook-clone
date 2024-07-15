@@ -16,10 +16,10 @@ export default function withAuth(
         globalUser = user;
       }
 
-      if (loginRequired && !logoutRequired && !user) {
-        Router.push("/public/login", "/login");
-        return;
-      }
+      //   if (loginRequired && !logoutRequired && !user) {
+      //     Router.push("/public/login", "/login");
+      //     return;
+      //   }
 
       if (logoutRequired && user) {
         Router.push("/");
@@ -36,26 +36,12 @@ export default function withAuth(
     return <BaseComponent {...props} />;
   }
 
-  App.propTypes = {
-    user: PropTypes.shape({
-      id: PropTypes.string,
-      isAdmin: PropTypes.bool,
-    }),
-    isFromServer: PropTypes.bool.isRequired,
-  };
-
-  App.defaultProps = {
-    user: null,
-  };
-
   App.getInitialProps = async (ctx: any) => {
+    console.log("------", ctx.req.user);
     const isFromServer = typeof window === "undefined";
-    const user = ctx.query ? JSON.parse(ctx.query.user) : globalUser;
-    // if (isFromServer && user) {
-    //   console.log("before", typeof user._id, user._id);
-    //   console.log("after", typeof user._id, user._id);
-    // }
+    const user = ctx.req ? ctx.req.user : globalUser;
 
+    console.log(typeof user);
     const props = { user, isFromServer };
 
     if (BaseComponent.getInitialProps) {
