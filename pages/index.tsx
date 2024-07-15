@@ -2,20 +2,9 @@ import PropTypes from "prop-types";
 
 import Head from "next/head";
 import { DocumentContext } from "next/document";
-
-const propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string.isRequired,
-  }),
-};
-
-const defaultProps = {
-  user: null,
-};
+import withAuth from "@/lib/withAuth";
 
 const Index = ({ user }: any) => {
-  console.log("Index", user);
   return (
     <div style={{ padding: "10px 45px" }}>
       <Head>
@@ -31,17 +20,8 @@ const Index = ({ user }: any) => {
   );
 };
 
-Index.getInitialProps = (ctx: any) => {
-  //const res = await fetch("http://localhost:3001/");
+// Index.getInitialProps = (ctx: any) => {
+//   return { user: ctx.query.user ? JSON.parse(ctx.query.user) : "" };
+// };
 
-  //const json = await res.json();
-  //console.log(json);
-
-  //console.log("ctx.query", ctx.query);
-  return { user: JSON.parse(ctx.query.user) };
-};
-
-Index.propTypes = propTypes;
-Index.defaultProps = defaultProps;
-
-export default Index;
+export default withAuth(Index);

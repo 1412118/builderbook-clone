@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const next = require("next");
 const User = require("./models/User");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 require("dotenv").config();
 
@@ -24,13 +26,36 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
+  /** 1. Creating session*/
+  const sess = {
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    /** 2. Saving session*/
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL_TEST,
+      ttl: 14 * 24 * 60 * 60, // save session 14 days
+    }),
+    /** 2. Saving session*/
+    resave: false, //save session to db
+    saveUninitialized: false, //save session to db
+    cookie: {
+      httpOnly: true,
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+      domain: "localhost",
+    },
+  };
+
+  server.use(session(sess));
+  /** 1. Creating session*/
+
   server.get("/", async (req, res) => {
-    //return res.send("My express server");]
-    //const user = JSON.stringify({ email: "datdt44@gmail.com" });
-    const user = JSON.stringify(
-      await User.findOne({ slug: "team-builder-book" })
-    );
-    //console.log(user);
+    // const user = JSON.stringify(
+    //   await User.findOne({ slug: "team-builder-book" })
+    // );
+
+    const user = await User.findOne({ slug: "team-builder-book" });
+
+    req.user = user;
     app.render(req, res, "/", { user });
   });
 

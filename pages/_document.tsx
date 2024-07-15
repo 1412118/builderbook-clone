@@ -1,132 +1,92 @@
 /* eslint-disable react/no-danger */
-import React from "react";
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import PropTypes from "prop-types";
 
-import createEmotionServer from "@emotion/server/create-instance";
+/* eslint-disable react/no-danger */
 import createCache from "@emotion/cache";
+import createEmotionServer from "@emotion/server/create-instance";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import React from "react";
 
-const propTypes = {
-  styles: PropTypes.arrayOf(
-    PropTypes.string ||
-      PropTypes.number ||
-      PropTypes.ReactElementLike ||
-      React.ReactFragment
-  ).isRequired,
-};
+function MyDocument() {
+  return (
+    <Html lang="en">
+      <Head>
+        <link rel="shortcut icon" href="/logo.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
 
-class MyDocument extends Document {
-  static getInitialProps = async (ctx) => {
-    // Render app and page and get the context of the page with collected side effects.
-    const originalRenderPage = ctx.renderPage;
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SELGBDXEEF"
+        ></script>
+        {/* <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossOrigin="anonymous"
+        /> */}
+        {/* <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> */}
+      </Head>
 
-    // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
-    // However, be aware that it can have global side effects.
-    const cache = createCache({
-      key: "css",
-      prepend: true,
-    });
-    const { extractCriticalToChunks } = createEmotionServer(cache);
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
 
+MyDocument.getInitialProps = async (ctx) => {
+  const originalRenderPage = ctx.renderPage;
+
+  const cache = createCache({
+    key: "css",
+    prepend: true,
+  });
+  const { extractCriticalToChunks } = createEmotionServer(cache);
+  try {
     ctx.renderPage = () =>
       originalRenderPage({
-        // eslint-disable-next-line react/display-name
         enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
       });
 
     const initialProps = await Document.getInitialProps(ctx);
-    // This is important. It prevents emotion to render invalid HTML.
-    // See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153
     const chunks = extractCriticalToChunks(initialProps.html);
 
     const emotionStyleTags = chunks.styles.map((style) => (
       <style
         data-emotion={`${style.key} ${style.ids.join(" ")}`}
         key={style.key}
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: style.css }}
       />
     ));
 
     return {
       ...initialProps,
-      // Styles fragment is rendered after the app and page rendering finish.
-      styles: [
-        ...React.Children.toArray(initialProps.styles),
-        ...emotionStyleTags,
-      ],
+      styles: (
+        <>
+          {initialProps.styles}
+          {[
+            ...React.Children.toArray(initialProps.styles),
+            ...emotionStyleTags,
+          ]}
+        </>
+      ),
     };
-  };
-
-  render() {
-    return (
-      <Html lang="en" style={{ height: "100%" }}>
-        <Head>
-          <meta charSet="utf-8" />
-          <meta name="google" content="notranslate" />
-          <meta name="theme-color" content="#1976D2" />
-
-          <link
-            rel="shortcut icon"
-            href="https://storage.googleapis.com/builderbook/favicon32.png"
-          />
-
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400:latin"
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
-          <link
-            rel="stylesheet"
-            href="https://storage.googleapis.com/builderbook/nprogress.min.css"
-          />
-          <link
-            rel="stylesheet"
-            href="https://storage.googleapis.com/builderbook/vs.min.css"
-          />
-
-          <style>
-            {`
-              a {
-                font-weight: 400;
-                color: #58a6ff;
-                text-decoration: none;
-                outline: none;
-              }
-              blockquote {
-                padding: 0 1em;
-                color: #555;
-                border-left: 0.25em solid #dfe2e5;
-              }
-              pre {
-                display:block;
-                overflow-x:auto;
-                padding:0.5em;
-                background:#FFF;
-                color: #000;
-                border: 1px solid #ddd;
-                font-size: 14px;
-              }
-              code {
-                font-size: 14px;
-                background: #FFF;
-              }
-            `}
-          </style>
-          {this.props.styles}
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
+  } finally {
   }
-}
-
-MyDocument.propTypes = propTypes;
+};
 
 export default MyDocument;

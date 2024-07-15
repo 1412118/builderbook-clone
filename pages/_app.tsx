@@ -7,28 +7,17 @@ import PropTypes from "prop-types";
 import React from "react";
 import Head from "next/head";
 
-// import { theme } from "../lib/theme";
+import { theme } from "../lib/theme";
+import Header from "@/components/Header";
 
-//import Header from "../components/Header";
-
-const propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired, // eslint-disable-line
-};
-
-class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-
-    // console.log(pageProps);
-
-    return (
-      <CacheProvider
-        value={createCache({
-          key: "css",
-        })}
-      >
-        {/* <ThemeProvider theme={theme}> */}
+function MyApp({ Component, pageProps }: any) {
+  return (
+    <CacheProvider
+      value={createCache({
+        key: "css",
+      })}
+    >
+      <ThemeProvider theme={theme}>
         {/* ThemeProvider makes the theme available down the React tree thanks to React context. */}
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <Head>
@@ -38,14 +27,11 @@ class MyApp extends App {
           />
         </Head>
         <CssBaseline />
-        {/* <Header {...pageProps} /> */}
+        <Header {...pageProps} />
         <Component {...pageProps} />
-        {/* </ThemeProvider> */}
-      </CacheProvider>
-    );
-  }
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }
-
-MyApp.propTypes = propTypes;
 
 export default MyApp;
