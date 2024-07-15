@@ -37,11 +37,8 @@ export default function withAuth(
   }
 
   App.getInitialProps = async (ctx: any) => {
-    console.log("------", ctx.req.user);
     const isFromServer = typeof window === "undefined";
     const user = ctx.req ? ctx.req.user : globalUser;
-
-    console.log(typeof user);
     const props = { user, isFromServer };
 
     if (BaseComponent.getInitialProps) {

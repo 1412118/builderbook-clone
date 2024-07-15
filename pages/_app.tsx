@@ -2,14 +2,16 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import App from "next/app";
-import PropTypes from "prop-types";
 import React from "react";
 import Head from "next/head";
+import NProgress from "nprogress";
 
 import { theme } from "../lib/theme";
 import Header from "@/components/Header";
-
+import { Router } from "next/router";
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 function MyApp({ Component, pageProps }: any) {
   return (
     <CacheProvider
@@ -24,6 +26,10 @@ function MyApp({ Component, pageProps }: any) {
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"
+          />
+          <link
+            rel="stylesheet"
+            href="https:/storge.googleapis.com/async-await/nprogress-light-spinner.css"
           />
         </Head>
         <CssBaseline />
