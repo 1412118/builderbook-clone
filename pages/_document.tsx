@@ -1,10 +1,10 @@
 /* eslint-disable react/no-danger */
 
 /* eslint-disable react/no-danger */
-import createCache from "@emotion/cache";
-import createEmotionServer from "@emotion/server/create-instance";
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import React from "react";
+import createCache from "@emotion/cache"
+import createEmotionServer from "@emotion/server/create-instance"
+import Document, { Head, Html, Main, NextScript } from "next/document"
+import React from "react"
 
 function MyDocument() {
   return (
@@ -48,25 +48,25 @@ function MyDocument() {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
 
 MyDocument.getInitialProps = async (ctx) => {
-  const originalRenderPage = ctx.renderPage;
+  const originalRenderPage = ctx.renderPage
 
   const cache = createCache({
     key: "css",
     prepend: true,
-  });
-  const { extractCriticalToChunks } = createEmotionServer(cache);
+  })
+  const { extractCriticalToChunks } = createEmotionServer(cache)
   try {
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
-      });
+      })
 
-    const initialProps = await Document.getInitialProps(ctx);
-    const chunks = extractCriticalToChunks(initialProps.html);
+    const initialProps = await Document.getInitialProps(ctx)
+    const chunks = extractCriticalToChunks(initialProps.html)
 
     const emotionStyleTags = chunks.styles.map((style) => (
       <style
@@ -74,7 +74,7 @@ MyDocument.getInitialProps = async (ctx) => {
         key={style.key}
         dangerouslySetInnerHTML={{ __html: style.css }}
       />
-    ));
+    ))
 
     return {
       ...initialProps,
@@ -87,9 +87,9 @@ MyDocument.getInitialProps = async (ctx) => {
           ]}
         </>
       ),
-    };
+    }
   } finally {
   }
-};
+}
 
-export default MyDocument;
+export default MyDocument
