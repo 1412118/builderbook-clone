@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
-import Head from "next/head";
-import React from "react";
+import { Button } from "@mui/material"
+import Head from "next/head"
+import React from "react"
 
-import withAuth from "../lib/withAuth";
-import { styleLoginButton } from "@/components/SharedStyles";
+import withAuth from "../lib/withAuth"
+import { styleLoginButton } from "@/components/SharedStyles"
 
 function Login() {
   return (
@@ -27,7 +27,7 @@ function Login() {
         Log in with Google
       </Button>
     </div>
-  );
+  )
 }
 
-export default withAuth(Login, { logoutRequired: true });
+export default withAuth(Login, { logoutRequired: true })

@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import Toolbar from "@mui/material/Toolbar";
-import Grid from "@mui/material/Grid";
+import Toolbar from "@mui/material/Toolbar"
+import Grid from "@mui/material/Grid"
 
-import { styleToolbar } from "./SharedStyles";
-import { Avatar } from "@mui/material";
-import MenuWithAvatar from "./MenuWithAvatar";
+import { styleToolbar } from "./SharedStyles"
+import { Avatar } from "@mui/material"
+import MenuWithAvatar from "./MenuWithAvatar"
 
 const optionsMenu = [
   {
@@ -17,7 +17,7 @@ const optionsMenu = [
     href: "/logout",
     anchor: true,
   },
-];
+]
 
 const Header = ({ user }: any) => (
   <div>
@@ -59,6 +59,6 @@ const Header = ({ user }: any) => (
       </Grid>
     </Toolbar>
   </div>
-);
+)
 
-export default Header;
+export default Header

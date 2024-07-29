@@ -1,17 +1,17 @@
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
-import React from "react";
-import Head from "next/head";
-import NProgress from "nprogress";
+import createCache from "@emotion/cache"
+import { CacheProvider } from "@emotion/react"
+import CssBaseline from "@mui/material/CssBaseline"
+import { ThemeProvider } from "@mui/material/styles"
+import React from "react"
+import Head from "next/head"
+import NProgress from "nprogress"
 
-import { theme } from "../lib/theme";
-import Header from "@/components/Header";
-import { Router } from "next/router";
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
+import { theme } from "../lib/theme"
+import Header from "@/components/Header"
+import { Router } from "next/router"
+Router.events.on("routeChangeStart", () => NProgress.start())
+Router.events.on("routeChangeComplete", () => NProgress.done())
+Router.events.on("routeChangeError", () => NProgress.done())
 function MyApp({ Component, pageProps }: any) {
   return (
     <CacheProvider
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: any) {
         <Component {...pageProps} />
       </ThemeProvider>
     </CacheProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

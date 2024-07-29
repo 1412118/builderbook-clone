@@ -1,15 +1,15 @@
-import { Avatar, Menu, MenuItem } from "@mui/material";
-import Link from "next/link";
-import React, { useState } from "react";
+import { Avatar, Menu, MenuItem } from "@mui/material"
+import Link from "next/link"
+import React, { useState } from "react"
 
 function MenuWithAvatar({ options, src, alt }: any) {
-  const [anchorEl, setAnchorEl] = useState();
+  const [anchorEl, setAnchorEl] = useState()
   const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
   return (
     <div>
       <Avatar
@@ -32,9 +32,9 @@ function MenuWithAvatar({ options, src, alt }: any) {
             {option.anchor ? (
               <MenuItem
                 onClick={(event) => {
-                  event.preventDefault();
-                  window.location.href = option.href;
-                  handleClose();
+                  event.preventDefault()
+                  window.location.href = option.href
+                  handleClose()
                 }}
               >
                 {option.text}
@@ -48,7 +48,7 @@ function MenuWithAvatar({ options, src, alt }: any) {
         ))}
       </Menu>
     </div>
-  );
+  )
 }
 
-export default MenuWithAvatar;
+export default MenuWithAvatar
