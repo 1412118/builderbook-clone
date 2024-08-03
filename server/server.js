@@ -4,6 +4,7 @@ const next = require("next")
 const User = require("./models/User")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")
+const setupGoogle = require("./google")
 
 require("dotenv").config()
 
@@ -48,16 +49,18 @@ app.prepare().then(() => {
   server.use(session(sess))
   /** 1. Creating session*/
 
-  server.get("/", async (req, res) => {
-    // const user = JSON.stringify(
-    //   await User.findOne({ slug: "team-builder-book" })
-    // );
-    //req.session.foo = "bar"; for cookies
-    const user = await User.findOne({ slug: "team-builder-book" })
+  setupGoogle({ server, ROOT_URL })
 
-    req.user = user
-    app.render(req, res, "/", { user })
-  })
+  // server.get("/", async (req, res) => {
+  //   // const user = JSON.stringify(
+  //   //   await User.findOne({ slug: "team-builder-book" })
+  //   // );
+  //   //req.session.foo = "bar"; for cookies
+  //   const user = await User.findOne({ slug: "team-builder-book" })
+
+  //   req.user = user
+  //   app.render(req, res, "/", { user })
+  // })
 
   server.get("*", (req, res) => {
     return handle(req, res)

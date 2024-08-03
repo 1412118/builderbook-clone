@@ -3,7 +3,7 @@ const Strategy = require("passport-google-oauth").OAuth2Strategy
 const User = require("./models/User")
 const { verify } = require("crypto")
 
-export default function setupGoogle({ ROOT_URL, server }) {
+function setupGoogle({ server, ROOT_URL }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
     let email
     let avatarUrl
@@ -85,7 +85,7 @@ export default function setupGoogle({ ROOT_URL, server }) {
    * browser
    */
   server.get(
-    "/oauth2callback",
+    "/auth/google/callback",
     passport.authenticate("google", {
       failureRedirect: "/login",
     }),
@@ -107,3 +107,5 @@ export default function setupGoogle({ ROOT_URL, server }) {
     })
   })
 }
+
+module.exports = setupGoogle
